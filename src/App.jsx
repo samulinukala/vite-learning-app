@@ -18,23 +18,32 @@ function test()
     );};
 */}
 const Rating = () =>{
+  const [rating,setRating] = useState(0);
+  const [hover,setHover] = useState(0);
   const stars= Array.from({length: 5},(_,i)=>i+1);
-  const clicked=(index) => alert(`clicked ${index}`);
-  const hover=(index)=>alert("hover");
-  const leave=(index)=>alert("leave");
+  const feedbackMessage=["total ass","poo","just fine","kinda nice","orgasmic"];
+  
+ 
   return(  
   <div className="rating-container">
    <h2> poooop </h2>
   <div className='stars'>
+  Rating: {rating}
   {stars.map((star, index) => 
-  (<span onMouseEnter={()=>hover(index)}
-  onMouseLeave={()=>leave(index)} 
-  onClick={()=>clicked(index)}key={star} className='star'>
+  (<span
+  onClick={()=>setRating(star)}
+  onMouseEnter={()=>setHover(star)}
+  onMouseLeave={()=>setHover(0)}
+  key={star} 
+  
+  className={`star ${star<=(hover||rating) ? 'active': ''  }`}>
+  
   {'\u2605'}
   </span>
     
   ))}
   </div>
+  <h2>{`${rating>0? feedbackMessage[rating-1]:"please rate us"}`}</h2>
   </div>
   );
 };
